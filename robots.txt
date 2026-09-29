@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /members.html
+Disallow: /.netlify/
+Disallow: /review/
+
+Sitemap: https://www.championgymnastics.co.uk/sitemap.xml

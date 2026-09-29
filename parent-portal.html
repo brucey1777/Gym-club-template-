@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Parent Portal | Champion Gymnastics York</title>
+<meta name="robots" content="noindex"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --gold:#C9921A;--gold-bright:#F5A623;--gold-light:#FFD166;
+    --navy:#1A2B5E;--navy-dark:#111C3E;--navy-mid:#2A3F7E;
+    --coral:#FF6B6B;--border:#E8E0F0;--off:#FFFBF2;
+    --muted:#7A7A8A;--heading:'Fredoka One',cursive;--body:'Nunito',sans-serif;
+    --r:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--body);background:var(--off);min-height:100vh;display:flex;flex-direction:column}
+  header{background:var(--navy-dark);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem}
+  header img{height:48px;width:auto}
+  header .site-name{font-family:var(--heading);color:#fff;font-size:1.4rem;line-height:1.1}
+  header .site-name small{display:block;font-family:var(--body);font-size:0.7rem;font-weight:600;color:var(--gold-light);letter-spacing:1px;text-transform:uppercase}
+  .back-link{margin:1.2rem 1.5rem 0;font-size:0.85rem}
+  .back-link a{color:var(--navy);font-weight:700;text-decoration:none}
+  .back-link a:hover{text-decoration:underline}
+  main{flex:1;padding:1.5rem 1rem 3rem;max-width:600px;margin:0 auto;width:100%}
+  h1{font-family:var(--heading);font-size:2rem;color:var(--navy);margin-bottom:0.3rem}
+  .subtitle{color:var(--muted);font-size:0.95rem;margin-bottom:1.5rem;font-weight:600}
+  .disclaimer{background:#FFF8E8;border:2px solid var(--gold-bright);border-radius:var(--r);padding:0.75rem 1rem;font-size:0.8rem;color:var(--navy);margin-bottom:1.8rem;font-weight:600}
+  /* Email entry */
+  #email-screen{}
+  .email-row{display:flex;gap:0.6rem;margin-top:0.5rem}
+  .email-row input{flex:1;padding:0.65rem 0.9rem;border:2px solid var(--border);border-radius:var(--r);font-family:var(--body);font-size:0.95rem;color:#333;background:#fff}
+  .email-row input:focus{outline:none;border-color:var(--gold-bright)}
+  .btn-find{background:var(--navy);color:#fff;font-family:var(--heading);font-size:1rem;border:none;border-radius:50px;padding:0.65rem 1.4rem;cursor:pointer;white-space:nowrap;transition:opacity .15s}
+  .btn-find:hover{opacity:0.85}
+  .btn-find:disabled{opacity:0.5;cursor:not-allowed}
+  /* Results */
+  #results-screen{display:none}
+  .results-email{font-size:0.85rem;color:var(--muted);margin-bottom:1.2rem;font-weight:600}
+  .results-email strong{color:var(--navy)}
+  .booking-card{background:#fff;border:2px solid var(--border);border-radius:16px;padding:1.2rem 1.4rem;margin-bottom:1rem;box-shadow:0 2px 10px rgba(0,0,0,0.06)}
+  .booking-card .child{font-family:var(--heading);font-size:1.3rem;color:var(--navy);margin-bottom:0.3rem}
+  .booking-card .class-name{font-size:0.9rem;color:#444;margin-bottom:0.6rem;font-weight:600}
+  .badge{display:inline-block;border-radius:50px;padding:0.2rem 0.75rem;font-size:0.8rem;font-weight:800;letter-spacing:0.3px}
+  .badge.paid{background:#EEF9F0;color:#1a6b3a;border:1.5px solid #6FD38C}
+  .badge.unpaid{background:#FFF8E8;color:#8B5E00;border:1.5px solid var(--gold)}
+  .unpaid-msg{font-size:0.82rem;color:var(--muted);margin-top:0.5rem;font-weight:600}
+  .submitted{font-size:0.75rem;color:var(--muted);margin-top:0.6rem}
+  .empty-msg{text-align:center;padding:2rem 1rem;color:var(--muted);font-weight:600}
+  .empty-msg .icon{font-size:2.5rem;display:block;margin-bottom:0.5rem}
+  .error-msg{background:#FFF0F0;border:2px solid var(--coral);border-radius:var(--r);padding:0.75rem 1rem;color:#8B1A2E;font-weight:700;font-size:0.9rem;margin-top:0.5rem;display:none}
+  .loading{color:var(--muted);font-size:0.9rem;font-weight:600;display:none;margin-top:0.5rem}
+  .try-again{font-size:0.82rem;margin-top:1.2rem}
+  .try-again a{color:var(--navy-mid);font-weight:700;cursor:pointer;text-decoration:underline}
+</style>
+<script src="/assets/club-theme.js" defer></script>
+</head>
+<body>
+<header>
+  <img src="/images/logo.png" alt="Champion Gymnastics York logo" data-club-field="name" data-club-attr="alt" onerror="this.style.display='none'"/>
+  <div class="site-name">Champion Gymnastics<small>York</small></div>
+</header>
+<div class="back-link"><a href="/">← Back to the main site</a></div>
+<main>
+  <h1>👪 Parent Portal</h1>
+  <p class="subtitle">View your child's booking and payment status.</p>
+  <div class="disclaimer">🔒 For security, only basic booking details are shown here. No account or password required.</div>
+
+  <!-- Email entry screen -->
+  <div id="email-screen">
+    <label style="font-weight:800;font-size:0.85rem;color:var(--navy);display:block;margin-bottom:0.4rem">Enter your email address to find your booking</label>
+    <div class="email-row">
+      <input type="email" id="email-input" placeholder="jane@email.com" autocomplete="email"/>
+      <button class="btn-find" id="find-btn" onclick="lookupBookings()">Find my booking</button>
+    </div>
+    <div class="loading" id="loading">🔍 Searching…</div>
+    <div class="error-msg" id="error-msg">Something went wrong. Please try again.</div>
+  </div>
+
+  <!-- Results screen -->
+  <div id="results-screen">
+    <p class="results-email">Showing bookings for <strong id="results-email-label"></strong></p>
+    <div id="bookings-container"></div>
+    <p class="try-again"><a onclick="resetPortal()">Search a different email address</a></p>
+  </div>
+</main>
+<script>
+async function lookupBookings() {
+  const emailInput = document.getElementById('email-input');
+  const email = emailInput.value.trim();
+  const errorMsg = document.getElementById('error-msg');
+  const loading = document.getElementById('loading');
+  const findBtn = document.getElementById('find-btn');
+
+  errorMsg.style.display = 'none';
+
+  if (!email || !email.includes('@')) {
+    errorMsg.textContent = '⚠️ Please enter a valid email address.';
+    errorMsg.style.display = 'block';
+    return;
+  }
+
+  findBtn.disabled = true;
+  loading.style.display = 'block';
+
+  try {
+    const res = await fetch('/.netlify/functions/parent-api?action=email-lookup&email=' + encodeURIComponent(email));
+    const data = await res.json();
+
+    if (!res.ok) throw new Error(data.error || 'Lookup failed');
+
+    showResults(email, data.bookings || []);
+  } catch (err) {
+    errorMsg.textContent = '❌ ' + (err.message || 'Something went wrong. Please try again.');
+    errorMsg.style.display = 'block';
+  }
+
+  findBtn.disabled = false;
+  loading.style.display = 'none';
+}
+
+function showResults(email, bookings) {
+  document.getElementById('email-screen').style.display = 'none';
+  const resultsScreen = document.getElementById('results-screen');
+  resultsScreen.style.display = 'block';
+  document.getElementById('results-email-label').textContent = email;
+
+  const container = document.getElementById('bookings-container');
+  container.innerHTML = '';
+
+  if (!bookings.length) {
+    container.innerHTML = '<div class="empty-msg"><span class="icon">🔍</span>No bookings found for this email address.<br><br>If you registered recently, it may take a few minutes to appear. Contact us at <a href="mailto:championgymnasticsyork@gmail.com" style="color:var(--navy)">championgymnasticsyork@gmail.com</a> if you need help.</div>';
+    return;
+  }
+
+  bookings.forEach(b => {
+    const date = b.submittedAt ? new Date(b.submittedAt).toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' }) : null;
+    const card = document.createElement('div');
+    card.className = 'booking-card';
+    card.innerHTML = `
+      <div class="child">🤸 ${escHtml(b.childName)}</div>
+      <div class="class-name">${escHtml(b.class)}</div>
+      <span class="badge ${b.paid ? 'paid' : 'unpaid'}">${b.paid ? '✅ Payment received' : '⏳ Payment pending'}</span>
+      ${!b.paid ? '<p class="unpaid-msg">Your payment link was emailed to you. Contact us if you need it resent.</p>' : ''}
+      ${date ? `<p class="submitted">Registered: ${date}</p>` : ''}
+    `;
+    container.appendChild(card);
+  });
+}
+
+function resetPortal() {
+  document.getElementById('results-screen').style.display = 'none';
+  document.getElementById('email-screen').style.display = 'block';
+  document.getElementById('email-input').value = '';
+  document.getElementById('error-msg').style.display = 'none';
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Allow Enter key in email field
+document.getElementById('email-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') lookupBookings();
+});
+</script>
+</body>
+</html>

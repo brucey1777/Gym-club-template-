@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Join the Waiting List | Champion Gymnastics York</title>
+<meta name="robots" content="noindex"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --gold:#C9921A;--gold-bright:#F5A623;--gold-light:#FFD166;
+    --navy:#1A2B5E;--navy-dark:#111C3E;--navy-mid:#2A3F7E;
+    --coral:#FF6B6B;--border:#E8E0F0;--off:#FFFBF2;
+    --muted:#7A7A8A;--heading:'Fredoka One',cursive;--body:'Nunito',sans-serif;
+    --r:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--body);background:var(--off);min-height:100vh;display:flex;flex-direction:column}
+  header{background:var(--navy-dark);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem}
+  header img{height:48px;width:auto}
+  header .site-name{font-family:var(--heading);color:#fff;font-size:1.4rem;line-height:1.1}
+  header .site-name small{display:block;font-family:var(--body);font-size:0.7rem;font-weight:600;color:var(--gold-light);letter-spacing:1px;text-transform:uppercase}
+  .back-link{margin:1.2rem 1.5rem 0;font-size:0.85rem}
+  .back-link a{color:var(--navy);font-weight:700;text-decoration:none}
+  .back-link a:hover{text-decoration:underline}
+  main{flex:1;padding:1.5rem 1rem 3rem;max-width:560px;margin:0 auto;width:100%}
+  h1{font-family:var(--heading);font-size:2rem;color:var(--navy);margin-bottom:0.3rem}
+  .subtitle{color:var(--muted);font-size:0.95rem;margin-bottom:1.8rem;font-weight:600}
+  .form-group{margin-bottom:1.1rem}
+  label{display:block;font-weight:800;font-size:0.85rem;color:var(--navy);margin-bottom:0.35rem;letter-spacing:0.3px}
+  input,select,textarea{width:100%;padding:0.65rem 0.9rem;border:2px solid var(--border);border-radius:var(--r);font-family:var(--body);font-size:0.95rem;color:#333;background:#fff;transition:border-color .15s}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold-bright)}
+  .btn-submit{display:block;width:100%;background:var(--gold-bright);color:var(--navy-dark);font-family:var(--heading);font-size:1.1rem;border:none;border-radius:50px;padding:0.85rem 1.5rem;cursor:pointer;box-shadow:0 4px 0 var(--gold);margin-top:1.5rem;transition:opacity .15s}
+  .btn-submit:hover{opacity:0.9}
+  .btn-submit:disabled{opacity:0.6;cursor:not-allowed}
+  .msg{display:none;border-radius:var(--r);padding:1rem 1.2rem;margin-top:1.2rem;font-weight:700;font-size:0.95rem}
+  .msg.success{background:#EEF9F0;border:2px solid #6FD38C;color:#1a6b3a}
+  .msg.error{background:#FFF0F0;border:2px solid var(--coral);color:#8B1A2E}
+</style>
+<script src="/assets/club-theme.js" defer></script>
+</head>
+<body>
+<header>
+  <img src="/images/logo.png" alt="Champion Gymnastics York logo" data-club-field="name" data-club-attr="alt" onerror="this.style.display='none'"/>
+  <div class="site-name">Champion Gymnastics<small>York</small></div>
+</header>
+<div class="back-link"><a href="/">← Back to the main site</a></div>
+<main>
+  <h1>📋 Join the Waiting List</h1>
+  <p class="subtitle">This class is currently full. Add your details below and we'll contact you as soon as a space opens up.</p>
+  <form id="wl-form" novalidate>
+    <div class="form-group">
+      <label for="child_name">Child's Name *</label>
+      <input type="text" id="child_name" name="child_name" placeholder="e.g. Emily Smith" required/>
+    </div>
+    <div class="form-group">
+      <label for="year_group">Year Group *</label>
+      <input type="text" id="year_group" name="year_group" placeholder="e.g. Year 2" required/>
+    </div>
+    <div class="form-group">
+      <label for="parent_name">Parent / Guardian Name *</label>
+      <input type="text" id="parent_name" name="parent_name" placeholder="e.g. Jane Smith" required/>
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address *</label>
+      <input type="email" id="email" name="email" placeholder="jane@email.com" required/>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone Number <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+      <input type="tel" id="phone" name="phone" placeholder="07700 000000"/>
+    </div>
+    <div class="form-group">
+      <label for="class">Class *</label>
+      <select id="class" name="class" required>
+        <option value="" disabled selected>Select a class…</option>
+        <option value="Minis">Minis (Fri 4–5pm)</option>
+        <option value="Juniors">Juniors (Fri 5–6pm)</option>
+        <option value="Seniors">Seniors (Fri 6–7pm)</option>
+        <option value="Year 1 &amp; 2">Lunchtime Y1&amp;2 (Wed)</option>
+        <option value="Year 3">Lunchtime Y3 (Wed)</option>
+        <option value="Year 4">After School Y4–6 (Wed)</option>
+      </select>
+    </div>
+    <button type="submit" class="btn-submit" id="submit-btn">Join Waiting List</button>
+    <div class="msg success" id="success-msg">✅ You're on the waiting list! We'll contact you as soon as a space opens.</div>
+    <div class="msg error" id="error-msg">❌ Something went wrong. Please try again or email <span data-club-field="email">championgymnasticsyork@gmail.com</span></div>
+  </form>
+</main>
+<script>
+// Pre-select class from URL param
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const cls = params.get('class');
+  if (cls) {
+    const sel = document.getElementById('class');
+    for (let i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].value === cls) { sel.selectedIndex = i; break; }
+    }
+  }
+})();
+
+document.getElementById('wl-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = document.getElementById('submit-btn');
+  const successMsg = document.getElementById('success-msg');
+  const errorMsg = document.getElementById('error-msg');
+  successMsg.style.display = 'none';
+  errorMsg.style.display = 'none';
+
+  const required = form.querySelectorAll('[required]');
+  let valid = true;
+  required.forEach(el => { if (!el.value.trim()) valid = false; });
+  if (!valid) { errorMsg.textContent = '⚠️ Please fill in all required fields.'; errorMsg.style.display = 'block'; return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  const payload = {
+    childName: form.child_name.value.trim(),
+    yearGroup: form.year_group.value.trim(),
+    parentName: form.parent_name.value.trim(),
+    email: form.email.value.trim(),
+    phone: form.phone.value.trim(),
+    classMatch: form.class.value,
+  };
+
+  try {
+    const res = await fetch('/.netlify/functions/waiting-list', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) {
+      form.reset();
+      successMsg.style.display = 'block';
+    } else {
+      const data = await res.json().catch(() => ({}));
+      errorMsg.textContent = data.error
+        ? `❌ ${data.error}`
+        : '❌ Something went wrong. Please try again or email championgymnasticsyork@gmail.com';
+      errorMsg.style.display = 'block';
+    }
+  } catch (err) {
+    errorMsg.textContent = '❌ Something went wrong. Please try again or email championgymnasticsyork@gmail.com';
+    errorMsg.style.display = 'block';
+  }
+  btn.disabled = false;
+  btn.textContent = 'Join Waiting List';
+});
+</script>
+</body>
+</html>
